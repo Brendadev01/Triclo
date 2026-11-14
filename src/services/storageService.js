@@ -24,3 +24,11 @@ export async function saveData(data) {
     console.warn('Erro ao salvar dados:', error);
   }
 }
+
+export async function clearData() {
+  try {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.warn('Erro ao apagar dados:', error);
+  }
+}

@@ -34,7 +34,7 @@ export default function SetupScreen({ navigation }) {
       <Text style={styles.eyebrow}>CONFIGURAÇÃO INICIAL</Text>
       <Text style={styles.title}>Vamos configurar seu anticoncepcional</Text>
       <Text style={styles.description}>
-        Informe os dados do método de 3 em 3 meses.
+        Informe os dados do seu método anticoncepcional.
       </Text>
 
       <TextField

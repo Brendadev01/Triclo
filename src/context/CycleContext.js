@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { INITIAL_DATA, loadData, saveData } from '../services/storageService';
+import { clearData, INITIAL_DATA, loadData, saveData } from '../services/storageService';
 
 const CycleContext = createContext(null);
 
@@ -47,9 +47,14 @@ export function CycleProvider({ children }) {
     [data, persist]
   );
 
+  const resetData = useCallback(async () => {
+    await clearData();
+    setData(INITIAL_DATA);
+  }, []);
+
   const value = useMemo(
-    () => ({ ...data, isLoading, startCycle, finishCycle }),
-    [data, isLoading, startCycle, finishCycle]
+    () => ({ ...data, isLoading, startCycle, finishCycle, resetData }),
+    [data, isLoading, startCycle, finishCycle, resetData]
   );
 
   return <CycleContext.Provider value={value}>{children}</CycleContext.Provider>;

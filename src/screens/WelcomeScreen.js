@@ -22,7 +22,7 @@ export default function WelcomeScreen({ navigation }) {
           <Ionicons name="water" size={56} color={colors.primary} />
         </View>
         <Text style={styles.title}>Triclo</Text>
-        <Text style={styles.tagline}>Seu ciclo de 3 em 3 meses, acompanhado.</Text>
+        <Text style={styles.tagline}>Entenda como seu corpo reage a cada anticoncepcional.</Text>
       </View>
       <PrimaryButton
         title="Começar"

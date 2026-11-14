@@ -1,14 +1,15 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../constants/colors';
 
-export default function TextField({ label, ...inputProps }) {
+export default function TextField({ label, multiline = false, ...inputProps }) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         accessibilityLabel={label}
         placeholderTextColor={colors.textMuted}
-        style={styles.input}
+        multiline={multiline}
+        style={[styles.input, multiline && styles.inputMultiline]}
         {...inputProps}
       />
     </View>
@@ -33,5 +34,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: colors.surface,
     color: colors.text,
+  },
+  inputMultiline: {
+    height: 96,
+    paddingTop: 14,
+    textAlignVertical: 'top',
   },
 });
