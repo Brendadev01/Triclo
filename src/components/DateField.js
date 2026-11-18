@@ -8,11 +8,13 @@ import { formatDate } from '../utils/dateUtils';
 export default function DateField({ label, value, onChange, minimumDate }) {
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
-  const handleChange = (event, selectedDate) => {
+  const handleValueChange = (event, selectedDate) => {
     setIsPickerVisible(false);
-    if (event.type !== 'dismissed' && selectedDate) {
-      onChange(selectedDate);
-    }
+    onChange(selectedDate);
+  };
+
+  const handleDismiss = () => {
+    setIsPickerVisible(false);
   };
 
   return (
@@ -33,7 +35,8 @@ export default function DateField({ label, value, onChange, minimumDate }) {
           mode="date"
           display={Platform.OS === 'ios' ? 'inline' : 'default'}
           minimumDate={minimumDate}
-          onChange={handleChange}
+          onValueChange={handleValueChange}
+          onDismiss={handleDismiss}
         />
       )}
     </View>
