@@ -3,7 +3,7 @@ import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import HealthNotice from '../components/HealthNotice';
 import ScreenContainer from '../components/ScreenContainer';
 import { colors } from '../constants/colors';
-import { getPainLabelByScore, MAX_PAIN_SCORE } from '../constants/painLevels';
+import { getPainLevelByScore, MAX_PAIN_SCORE } from '../constants/painLevels';
 import { useCycle } from '../context/CycleContext';
 import { hasClearBest, summarizeMedications } from '../utils/historyUtils';
 
@@ -51,7 +51,9 @@ export default function HistoryScreen({ navigation }) {
         <>
           {summaries.map((summary, index) => {
             const isBest = showBest && index === 0;
-            const fillWidth = `${(summary.averagePain / MAX_PAIN_SCORE) * 100}%`;
+            const painLevel = getPainLevelByScore(summary.averagePain);
+            // Mínimo de 6% para que "Sem dor" ainda mostre um pedacinho colorido
+            const fillPercent = Math.max((summary.averagePain / MAX_PAIN_SCORE) * 100, 6);
             const cyclesLabel = `${summary.cyclesCount} ${summary.cyclesCount === 1 ? 'ciclo' : 'ciclos'}`;
             const effectsText =
               summary.effects.length > 0
@@ -74,14 +76,17 @@ export default function HistoryScreen({ navigation }) {
                 </View>
 
                 <View style={styles.track}>
-                  <View style={[styles.fill, { width: fillWidth }]} />
+                  <View
+                    style={[
+                      styles.fill,
+                      { width: `${fillPercent}%`, backgroundColor: painLevel.color },
+                    ]}
+                  />
                 </View>
 
                 <Text style={styles.detail}>
-                  Dor média:{' '}
-                  <Text style={styles.detailStrong}>
-                    {getPainLabelByScore(summary.averagePain)}
-                  </Text>
+                  {painLevel.emoji} Dor média:{' '}
+                  <Text style={styles.detailStrong}>{painLevel.label}</Text>
                   {isBest ? ` · ${cyclesLabel}` : ''}
                 </Text>
                 <Text style={styles.detail}>
@@ -159,7 +164,6 @@ const styles = StyleSheet.create({
   fill: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: colors.primary,
   },
   detail: {
     fontSize: 14,
