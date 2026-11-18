@@ -1,9 +1,9 @@
 export const SIDE_EFFECTS = [
-  { id: 'migraine', label: 'Enxaqueca' },
-  { id: 'bloating', label: 'Inchaço' },
-  { id: 'nausea', label: 'Náusea' },
-  { id: 'irregularBleeding', label: 'Sangramento irregular' },
-  { id: 'moodChanges', label: 'Alteração de humor' },
+  { id: 'migraine', label: 'Enxaqueca', emoji: '🤕' },
+  { id: 'bloating', label: 'Inchaço', emoji: '🎈' },
+  { id: 'nausea', label: 'Náusea', emoji: '🤢' },
+  { id: 'irregularBleeding', label: 'Sangramento irregular', emoji: '🩸' },
+  { id: 'moodChanges', label: 'Alteração de humor', emoji: '🎭' },
 ];
 
 export function getSideEffectLabel(sideEffectId) {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import OptionButton from '../components/OptionButton';
+import PainOption from '../components/PainOption';
 import PrimaryButton from '../components/PrimaryButton';
 import ScreenContainer from '../components/ScreenContainer';
 import TextField from '../components/TextField';
@@ -61,39 +62,47 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <ScreenContainer>
-      <Text style={styles.title}>Como foi a dor neste ciclo?</Text>
-      <Text style={styles.description}>
-        {activeCycle.medicationName} · {formatDate(activeCycle.startDate)} a{' '}
-        {formatDate(activeCycle.endDate)}
-      </Text>
-
-      <View style={styles.options}>
-        {PAIN_LEVELS.map((level) => (
-          <OptionButton
-            key={level.id}
-            label={level.label}
-            selected={painLevel === level.id}
-            onPress={() => setPainLevel(level.id)}
-            style={styles.painOption}
-          />
-        ))}
+      <View style={styles.header}>
+        <Text style={styles.eyebrow}>FIM DO CICLO</Text>
+        <Text style={styles.title}>Como foi sua dor neste ciclo?</Text>
       </View>
 
-      <View style={styles.group}>
-        <Text style={styles.groupLabel}>Efeitos colaterais</Text>
+      <View style={styles.pill}>
+        <Text style={styles.pillText}>
+          💊 {activeCycle.medicationName} · {formatDate(activeCycle.startDate)} a{' '}
+          {formatDate(activeCycle.endDate)}
+        </Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionLabel}>Nível de dor</Text>
+        <View style={styles.painGrid}>
+          {PAIN_LEVELS.map((level) => (
+            <PainOption
+              key={level.id}
+              level={level}
+              selected={painLevel === level.id}
+              onPress={() => setPainLevel(level.id)}
+            />
+          ))}
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionLabel}>Sentiu mais alguma coisa?</Text>
         <View style={styles.chips}>
           {SIDE_EFFECTS.map((effect) => (
             <OptionButton
               key={effect.id}
               compact
-              label={effect.label}
+              label={`${effect.emoji} ${effect.label}`}
               selected={sideEffects.includes(effect.id)}
               onPress={() => toggleSideEffect(effect.id)}
             />
           ))}
           <OptionButton
             compact
-            label="Nenhum"
+            label="✅ Nenhum"
             selected={hasNoSideEffects}
             onPress={toggleNoSideEffects}
           />
@@ -101,7 +110,7 @@ export default function RegisterScreen({ navigation }) {
       </View>
 
       <TextField
-        label="Observações (opcional)"
+        label="Quer anotar algo? (opcional)"
         placeholder="Ex.: cólica mais forte no 2º dia"
         value={notes}
         onChangeText={setNotes}
@@ -116,29 +125,49 @@ export default function RegisterScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    gap: 6,
+  },
+  eyebrow: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.primary,
+  },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: '700',
-    lineHeight: 34,
+    lineHeight: 32,
     color: colors.text,
   },
   description: {
     fontSize: 15,
     color: colors.textMuted,
   },
-  options: {
+  pill: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 16,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+  pillText: {
+    fontSize: 13,
+    color: colors.textMuted,
+  },
+  section: {
     gap: 10,
   },
-  painOption: {
-    alignItems: 'flex-start',
-  },
-  group: {
-    gap: 8,
-  },
-  groupLabel: {
-    fontSize: 14,
+  sectionLabel: {
+    fontSize: 15,
     fontWeight: '600',
     color: colors.text,
+  },
+  painGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
   },
   chips: {
     flexDirection: 'row',
