@@ -12,6 +12,7 @@ export default function ScreenContainer({ children, style }) {
         <ScrollView
           contentContainerStyle={[styles.content, style]}
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
           {children}
         </ScrollView>
