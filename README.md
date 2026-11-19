@@ -80,6 +80,11 @@ triclo/
     ├── services/       # storageService (AsyncStorage)
     └── utils/          # dateUtils, historyUtils
 ```
+## Telas
+
+| Abertura | Início | Registrar | Histórico |
+| --- | --- | --- | --- |
+| <img src="docs/screenshots/abertura.jpeg" width="200" alt="Tela de abertura do Triclo"> | <img src="docs/screenshots/inicio.jpeg" width="200" alt="Tela inicial com o ciclo em andamento"> | <img src="docs/screenshots/registrar.jpeg" width="200" alt="Tela de registro de dor e efeitos colaterais"> | <img src="docs/screenshots/historico.jpeg" width="200" alt="Histórico comparando medicações"> |
 
 ## Próximos passos
 
